@@ -1,12 +1,6 @@
 
 `timescale 1ns / 1ps
 
-// -----------------------------------------------------------------------------
-// Wishbone shim: expose ONE address (0x3000_000C).
-//  - WB WRITE @ 0x3000_000C  -> send command into core
-//  - WB READ  @ 0x3000_000C  -> get result from core
-// -----------------------------------------------------------------------------
-
 `ifdef USE_POWER_PINS
     `define USE_PG_PIN
 `endif
@@ -78,7 +72,7 @@ module Neuromorphic_X1_wb (
 	// Instantiate the behavioral core
 	Neuromorphic_X1_beh core_inst (
 	`ifdef USE_PG_PIN
-      .VDDC1(VDDC2),
+      .VDDC1(VDDC1),
       .VDDC2(VDDC2),
       .VDDA1(VDDA1),
       .VDDA2(VDDA2),
@@ -320,7 +314,7 @@ module Neuromorphic_X1_beh (
   initial begin
     for (r = 0; r < 32; r = r + 1) begin
       for (c = 0; c < 32; c = c + 1) begin
-        array_mem[r][c] = 8'h00;
+        array_mem[r][c] = 1'b0;
       end
     end		
   end
